@@ -1,1 +1,59 @@
 #!/usr/bin/env python
+# Copyright (C) 2013 Steve Milner
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""
+Exports github issues and imports the info to Rally defects.
+"""
+
+import argparse
+import datetime
+import json
+
+import httplib2
+
+from urllib import urlencode
+
+
+def export_from_github(user, repo, days_back):
+    """
+    Export issues from Github.
+    """
+    http = httplib2.Http()
+    params = urlencode({
+        'state': 'open',
+        'since': (datetime.datetime.now() - datetime.timedelta(
+            days=days_back)).strftime('%Y-%m-%d'),
+    })
+    url = 'https://api.github.com/repos/{0}/{1}/issues?{2}'.format(
+        user, repo, params)
+    results = http.request(url)
+    return json.loads(results[1])
+
+
+def main():
+    """
+    Main script execution point.
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('user', type=str, nargs=1)
+    parser.add_argument('repo', type=str, nargs=1)
+    parser.add_argument('daysback', type=int, nargs=1)
+
+    args = parser.parse_args()
+    # TODO: Do stuff
+
+
+if __name__ == '__main__':
+    main()

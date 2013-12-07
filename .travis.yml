@@ -2,7 +2,7 @@ language: python
 python:
     - "2.7"
 install:
-    - "pip install pep8 nose"
+    - "pip install pep8 nose mock"
 script:
     - "pep8 bin/github-to-rally"
     - "./setup.py test"
