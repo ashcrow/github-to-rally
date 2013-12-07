@@ -20,6 +20,16 @@ Build script.
 from setuptools import setup
 
 
+install_requires = [
+    'httplib2',
+]
+
+test_requires = [
+    'nose',
+    'mock',
+] + install_requires
+
+
 setup(
     name="github_to_rally",
     version="0.0.1",
@@ -27,9 +37,7 @@ setup(
     url="https://github.com/ashcrow/github-to-rally",
     license="GPLv3",
     zip_safe=False,
-    test_requires=[
-        'nose',
-        'mock',
-    ],
+    install_requires=install_requires,
+    test_requires=test_requires,
     test_suite='nose.collector'
 )
