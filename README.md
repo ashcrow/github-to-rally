@@ -1,4 +1,4 @@
-github-to-remedy
-================
+github-to-rally
+===============
 
-Github issues to Remedy sync tool.
+Github issues to Rally sync tool.
