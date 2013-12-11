@@ -2,7 +2,7 @@ language: python
 python:
     - "2.7"
 install:
-    - "pip install pep8 nose mock httplib2 lettuce"
+    - "pip install pep8 nose mock httplib2 lettuce pyral"
 script:
     - "pep8 bin/github-to-rally"
     - "./setup.py test"

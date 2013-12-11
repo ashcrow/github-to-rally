@@ -22,6 +22,7 @@ from setuptools import setup
 
 install_requires = [
     'httplib2',
+    'pyral',
 ]
 
 test_requires = [

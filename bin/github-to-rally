@@ -22,7 +22,9 @@ import datetime
 import json
 
 import httplib2
+import pyral
 
+from getpass import getpass
 from urllib import urlencode
 
 
@@ -42,14 +44,38 @@ def export_from_github(user, repo, days_back):
     return json.loads(results[1])
 
 
+# FIXME: Totally untested
+def import_issues_to_rally(server, username, workspace, project, issues):
+    rally = pyral.Rally(server, username, getpass(), workspace, project)
+    project = rally.getProject()
+
+    for issue in issues:
+        defect_data = {
+            "Project": project.ref,
+            "Name": issue['title'],
+            "State": "Open",
+            "ScheduleState": "Defined",
+            "Description": issue['body'],
+        }
+
+        defect = rally.create('Defect', defect_data)
+
+
 def main():
     """
     Main script execution point.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('user', type=str, nargs=1)
-    parser.add_argument('repo', type=str, nargs=1)
-    parser.add_argument('daysback', type=int, nargs=1)
+    # Github items
+    parser.add_argument('github_user', type=str, nargs=1)
+    parser.add_argument('github_repo', type=str, nargs=1)
+    parser.add_argument('github_daysback', type=int, nargs=1)
+
+    # Github items
+    parser.add_argument('rally_server', type=str, nargs=1)
+    parser.add_argument('rally_user', type=str, nargs=1)
+    parser.add_argument('rally_workspace', type=str, nargs=1)
+    parser.add_argument('rally_project', type=str, nargs=1)
 
     args = parser.parse_args()
     # TODO: Do stuff
