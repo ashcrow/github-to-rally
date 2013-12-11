@@ -2,9 +2,10 @@ language: python
 python:
     - "2.7"
 install:
-    - "pip install pep8 nose mock"
+    - "pip install pep8 nose mock lettuce"
 script:
     - "pep8 bin/github-to-rally"
     - "./setup.py test"
+    - "lettuce test/features/"
 notifications:
     email: false
