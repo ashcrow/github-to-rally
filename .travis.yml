@@ -6,6 +6,5 @@ install:
 script:
     - "pep8 bin/github-to-rally"
     - "./setup.py test"
-    - "lettuce test/features/"
 notifications:
     email: false
