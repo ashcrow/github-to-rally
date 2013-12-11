@@ -5,6 +5,6 @@ install:
     - "pip install pep8 nose mock httplib2 lettuce pyral"
 script:
     - "pep8 bin/github-to-rally"
-    - "./setup.py test"
+    - "./setup.py test -s test"
 notifications:
     email: false
